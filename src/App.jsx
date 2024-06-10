@@ -1,12 +1,13 @@
 import React from 'react'
-import Router from './shared/Router'
+import Router from './routes/Router'
 import GlobalStyle from './GlobalStyle'
+import { RouterProvider } from 'react-router-dom'
 
 const App = () => {
   return (
     <>
       <GlobalStyle />
-      <Router />
+      <RouterProvider router={Router} />;
     </>
   )
 }
