@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate, useParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteExpense, updateExpense } from '../redux/slices/expense';
+import { deleteExpense, updateExpense } from '../../redux/slices/expense';
 
 const DetailExpense = () => {
     const { expenses } = useSelector(state => state.expenses);

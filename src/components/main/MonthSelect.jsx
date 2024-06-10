@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components'
-import { changeMonth } from "../redux/slices/listMonth";
+import { changeMonth } from "../../redux/slices/listMonth";
 
 const MonthSelect = () => {
     const { selectedMonth } = useSelector(state => state.listMonth);
