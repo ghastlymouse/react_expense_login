@@ -7,7 +7,7 @@ const App = () => {
   return (
     <>
       <GlobalStyle />
-      <RouterProvider router={Router} />;
+      <RouterProvider router={Router} />
     </>
   )
 }
