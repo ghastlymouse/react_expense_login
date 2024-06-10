@@ -1,8 +1,8 @@
 import React from 'react'
-import AddExpense from '../components/AddExpense';
-import ExpenseList from '../components/ExpenseList';
-import MonthSelect from '../components/MonthSelect';
-import ExpenseSummary from '../components/ExpenseSummary';
+import AddExpense from '../components/main/AddExpense';
+import ExpenseList from '../components/main/ExpenseList';
+import MonthSelect from '../components/main/MonthSelect';
+import ExpenseSummary from '../components/main/ExpenseSummary';
 
 const Home = () => {
 

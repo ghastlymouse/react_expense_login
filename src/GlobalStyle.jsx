@@ -7,7 +7,7 @@ const GlobalStyle = createGlobalStyle`
         font-style: normal;
         font-size: 20px;
         width: 1280px;
-        margin: 10px auto;
+        margin: 0 auto;
         background-color: skyblue;
         display: flex;
         flex-direction: column;
