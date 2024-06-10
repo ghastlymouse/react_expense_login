@@ -11,4 +11,6 @@ Currently, two official plugins are available:
 
 - 정현욱 리액트 숙련 개인과제
 - 지출내역 APP
+- 로그인 기능 추가
+
 # react_assignment2
