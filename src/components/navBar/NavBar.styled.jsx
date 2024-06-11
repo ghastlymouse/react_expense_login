@@ -32,6 +32,14 @@ export const RightDiv = styled.div`
     justify-content: space-around;
 `;
 
+export const NavButton = styled.button`
+    border: none;
+    background-color: transparent;
+    font-family: inherit;
+    font-size: 25px;
+    cursor: pointer;
+`;
+
 export const Button = styled.button`
     border: none;
     border-radius: 4px;

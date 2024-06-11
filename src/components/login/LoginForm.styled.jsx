@@ -2,6 +2,8 @@ import styled from "styled-components";
 
 export const Section = styled.section`
     width: 100%;
+    height: 300px;
+    margin-top: 100px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -17,7 +19,6 @@ export const TitleText = styled.span`
 export const Form = styled.form`
     background-color: white;
     width: 50%;
-    height: 300px;
     border: 5px solid black;
     border-radius: 10px;
     display: flex;

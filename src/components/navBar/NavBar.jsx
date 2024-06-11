@@ -8,11 +8,14 @@ const NavBar = () => {
     return (
         <S.Container>
             <S.LeftDiv>
-                <Link to={"/"}>Home</Link>{" "}
-                내 프로필
+                <S.NavButton onClick={() => navigate("/")}>Home</S.NavButton>{" "}
+                <S.NavButton onClick={() => navigate("/mypage")}>내 프로필</S.NavButton>
+
             </S.LeftDiv>
             <S.RightDiv>
-                내 닉네임{" "}
+                내 닉네임
+                <S.Button onClick={() => navigate("/login")}>로그인</S.Button>
+                <S.Button onClick={() => navigate("/signup")}>회원가입</S.Button>
                 <S.Button>로그아웃</S.Button>
             </S.RightDiv>
 

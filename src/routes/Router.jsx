@@ -5,6 +5,7 @@ import Details from '../pages/Details'
 import DefalutLayout from '../layouts/DefalutLayout'
 import Login from '../pages/Login'
 import SignUp from '../pages/SignUp'
+import MyPage from '../pages/MyPage'
 
 const Router = createBrowserRouter([
     {
@@ -13,7 +14,8 @@ const Router = createBrowserRouter([
             { path: '/', element: <Home /> },
             { path: '/detail/:id', element: <Details /> },
             { path: '/login', element: <Login /> },
-            { path: '/signup', element: <SignUp /> }
+            { path: '/signup', element: <SignUp /> },
+            { path: '/mypage', element: <MyPage /> }
         ]
     }
 ])
