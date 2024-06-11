@@ -11,12 +11,22 @@ const SignUpForm = () => {
     const [passwordConfirm, setPasswordConfirm] = useState("");
     const [nickname, setNickname] = useState("");
 
+    const [isIdValid, setIsIdValid] = useState(true);
+    const [isPasswordValid, setIsPasswordValid] = useState(true);
+    const [isPasswordComfirmValid, setIsPasswordComfirmValid] = useState(true);
+    const [isNicknameValid, setIsNicknameValid] = useState(true);
+
     const handleSubmitSignUpForm = async (event) => {
         event.preventDefault();
-        if (!id.trim()) return alert("아이디를 제대로 입력해주세요!");
-        if (!password.trim()) return alert("비밀번호를 제대로 입력해주세요!");
-        if (password !== passwordConfirm) return alert("비밀번호와 비밀번호 확인을 일치하게 입력해주세요!");
-        if (!nickname.trim()) return alert("닉네임을 제대로 입력해주세요!");
+        setIsIdValid(true);
+        setIsPasswordValid(true);
+        setIsPasswordComfirmValid(true);
+        setIsNicknameValid(true);
+
+        if (!id.trim()) return setIsIdValid(false);
+        if (!password.trim()) return setIsPasswordValid(false);
+        if (password !== passwordConfirm) return setIsPasswordComfirmValid(false);
+        if (!nickname.trim()) return setIsNicknameValid(false);
 
         try {
             const response = await axios.post("https://moneyfulpublicpolicy.co.kr/register", {
@@ -54,6 +64,7 @@ const SignUpForm = () => {
                         maxLength={10}
                     />
                 </S.InputDiv>
+                <S.Span $display={isIdValid ? "none" : "block"}>유효한 아이디를 입력해주세요!</S.Span>
                 <S.InputDiv>
                     <label htmlFor="pw">비밀번호</label>
                     <S.Input
@@ -66,6 +77,7 @@ const SignUpForm = () => {
                         maxLength={15}
                     />
                 </S.InputDiv>
+                <S.Span $display={isPasswordValid ? "none" : "block"}>유효한 비밀번호를 입력해주세요!</S.Span>
                 <S.InputDiv>
                     <label htmlFor="pwConfirm">비밀번호 확인</label>
                     <S.Input
@@ -78,6 +90,7 @@ const SignUpForm = () => {
                         maxLength={15}
                     />
                 </S.InputDiv>
+                <S.Span $display={isPasswordComfirmValid ? "none" : "block"}>비밀번호와 동일하게 입력해주세요!</S.Span>
                 <S.InputDiv>
                     <label htmlFor="nickName">닉네임</label>
                     <S.Input
@@ -90,6 +103,7 @@ const SignUpForm = () => {
                         maxLength={10}
                     />
                 </S.InputDiv>
+                <S.Span $display={isNicknameValid ? "none" : "block"}>유효한 닉네임을 입력해주세요!</S.Span>
                 <S.ButtonDiv>
                     <S.Button $color="green">회원가입</S.Button>
                 </S.ButtonDiv>
