@@ -14,27 +14,33 @@ const NavBar = () => {
     console.log(userInfo);
 
     const handleLogout = () => {
-        dispatch(logout());
+        const isLogout = confirm("정말 로그아웃 하시겠습니까?");
+        if (isLogout) return dispatch(logout());
     };
 
     useEffect(() => {
-        const fetchUserInfo = async () => {
-            try {
-                const token = localStorage.getItem("accessToken");
-                const response = await axios.get("https://moneyfulpublicpolicy.co.kr/user",
-                    {
-                        headers: {
-                            Authorization: `Bearer ${token}`,
-                        },
-                    }
-                );
-                console.log(response.data.nickname);
-                dispatch(setUserInfo(response.data));
-            } catch (error) {
-                console.log("Failed to fetch user info:", error);
-            }
+        if (!isLogin) {
+            console.log("로그아웃 상태");
         };
-        fetchUserInfo();
+        if (isLogin) {
+            const fetchUserInfo = async () => {
+                try {
+                    const token = localStorage.getItem("accessToken");
+                    const response = await axios.get("https://moneyfulpublicpolicy.co.kr/user",
+                        {
+                            headers: {
+                                Authorization: `Bearer ${token}`,
+                            },
+                        }
+                    );
+                    console.log(response.data.nickname);
+                    dispatch(setUserInfo(response.data));
+                } catch (error) {
+                    console.log("Failed to fetch user info:", error);
+                }
+            };
+            fetchUserInfo();
+        }
     }, [isLogin, navigate])
 
     return (
@@ -47,8 +53,8 @@ const NavBar = () => {
             <S.RightDiv>
                 <S.Span $display={isLogin ? "block" : "none"}>{nickname}님 환영합니다!</S.Span>
                 <S.Button $display={isLogin ? "none" : "block"} onClick={() => navigate("/login")}>로그인</S.Button>
-                <S.Button $display={isLogin ? "none" : "block"} onClick={() => navigate("/signup")}>회원가입</S.Button>
-                <S.Button $display={isLogin ? "block" : "none"} onClick={() => handleLogout()}>로그아웃</S.Button>
+                <S.Button $display={isLogin ? "none" : "block"} onClick={() => navigate("/signup")} $color="green">회원가입</S.Button>
+                <S.Button $display={isLogin ? "block" : "none"} onClick={() => handleLogout()} $color="red">로그아웃</S.Button>
             </S.RightDiv>
 
         </S.Container>
