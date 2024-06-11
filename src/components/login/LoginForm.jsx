@@ -23,7 +23,7 @@ const LoginForm = () => {
             const data = response.data;
             if (data.success) {
                 dispatch(login(data.accessToken));
-                navigate("/mypage");
+                navigate("/");
             } else {
                 alert("Login failed");
             }
