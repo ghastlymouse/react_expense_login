@@ -33,6 +33,7 @@ export const RightDiv = styled.div`
 `;
 
 export const NavButton = styled.button`
+    display: ${props => props.$display};
     border: none;
     background-color: transparent;
     font-family: inherit;
@@ -40,7 +41,12 @@ export const NavButton = styled.button`
     cursor: pointer;
 `;
 
+export const Span = styled.span`
+    display: ${props => props.$display};
+`;
+
 export const Button = styled.button`
+    display: ${props => props.$display};
     border: none;
     border-radius: 4px;
     background-color: ${props => props.$color || "blue"};
