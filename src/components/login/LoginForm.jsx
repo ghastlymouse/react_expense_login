@@ -54,8 +54,8 @@ const LoginForm = () => {
                     />
                 </S.InputDiv>
                 <S.ButtonDiv>
-                    <S.Button>로그인</S.Button>
-                    <S.Button $color="green" onClick={() => navigate('/signup')}>회원가입</S.Button>
+                    <S.Button type="submit">로그인</S.Button>
+                    <S.Button type="button" $color="green" onClick={() => navigate('/signup')}>회원가입</S.Button>
                 </S.ButtonDiv>
             </S.Form>
         </S.Section>
