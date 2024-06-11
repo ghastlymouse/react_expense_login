@@ -2,22 +2,26 @@ import React, { useState } from 'react'
 import * as S from './signUpForm.styled'
 
 const SignUpForm = () => {
-    const [email, setEmail] = useState("");
+    const [userId, setUserId] = useState("");
     const [pw, setPw] = useState("");
     const [pwConfirm, setPwConfirm] = useState("");
     const [nickName, setNickName] = useState("");
 
+    const handleSubmitSignUpForm = (event) => {
+        event.preventDefault();
+    };
+
     return (
         <S.Section>
-            <S.Form>
+            <S.Form onSubmit={handleSubmitSignUpForm}>
                 <S.TitleText>Sign Up</S.TitleText>
                 <S.InputDiv>
-                    <label htmlFor="email">이메일</label>
+                    <label htmlFor="userId">아이디</label>
                     <S.Input
-                        id="email"
-                        type="email"
-                        value={email}
-                        onChange={(e) => setEmail(e.target.value)}
+                        id="userId"
+                        type="text"
+                        value={userId}
+                        onChange={(e) => setUserId(e.target.value)}
                     />
                 </S.InputDiv>
                 <S.InputDiv>
