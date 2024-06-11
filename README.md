@@ -9,8 +9,9 @@ Currently, two official plugins are available:
 
 # react_assignment2
 
-- 정현욱 리액트 숙련 개인과제
+- 정현욱 리액트 심화 개인과제
 - 지출내역 APP
-- 로그인 기능 추가
+- Tanstack Query로 지출 관리
+- JWT API 로그인 기능 추가
 
 # react_assignment2
