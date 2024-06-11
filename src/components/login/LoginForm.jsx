@@ -10,9 +10,16 @@ const LoginForm = () => {
     const dispatch = useDispatch();
     const [id, setId] = useState("");
     const [password, setPassword] = useState("");
+    const [isIdValid, setIsIdValid] = useState(true);
+    const [isPasswordValid, setIsPasswordValid] = useState(true);
 
     const handleSubmiLoginForm = async (event) => {
         event.preventDefault();
+        setIsIdValid(true);
+        setIsPasswordValid(true);
+        if (!id.trim()) return setIsIdValid(false);
+        if (!password.trim()) return setIsPasswordValid(false);
+
         try {
             const response = await axios.post("https://moneyfulpublicpolicy.co.kr/login",
                 {
@@ -43,16 +50,20 @@ const LoginForm = () => {
                         type="text"
                         value={id}
                         onChange={(e) => setId(e.target.value)}
+                        required
                     />
                 </S.InputDiv>
+                <S.Span $display={isIdValid ? "none" : "block"}>아이디를 제대로 입력해주세요!</S.Span>
                 <S.InputDiv>
                     <label>비밀번호</label>
                     <S.Input
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
+                        required
                     />
                 </S.InputDiv>
+                <S.Span $display={isPasswordValid ? "none" : "block"}>비밀번호를 제대로 입력해주세요!</S.Span>
                 <S.ButtonDiv>
                     <S.Button type="submit">로그인</S.Button>
                     <S.Button type="button" $color="green" onClick={() => navigate('/signup')}>회원가입</S.Button>

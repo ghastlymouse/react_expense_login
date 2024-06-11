@@ -41,6 +41,11 @@ export const Input = styled.input`
     font-size: inherit;
 `;
 
+export const Span = styled.span`
+    display: ${props => props.$display};
+    color: red;
+`;
+
 export const ButtonDiv = styled.div`
     display: flex;
     flex-direction: row;
