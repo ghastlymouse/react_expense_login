@@ -1,14 +1,41 @@
 import React, { useState } from 'react'
 import * as S from './signUpForm.styled'
+import axios from 'axios';
+import { useNavigate } from 'react-router-dom';
 
 const SignUpForm = () => {
-    const [userId, setUserId] = useState("");
-    const [pw, setPw] = useState("");
-    const [pwConfirm, setPwConfirm] = useState("");
-    const [nickName, setNickName] = useState("");
+    const navigate = useNavigate();
 
-    const handleSubmitSignUpForm = (event) => {
+    const [id, setId] = useState("");
+    const [password, setPassword] = useState("");
+    const [passwordConfirm, setPasswordConfirm] = useState("");
+    const [nickname, setNickname] = useState("");
+
+    const handleSubmitSignUpForm = async (event) => {
         event.preventDefault();
+        if (!id.trim()) return alert("아이디를 제대로 입력해주세요!");
+        if (!password.trim()) return alert("비밀번호를 제대로 입력해주세요!");
+        if (password !== passwordConfirm) return alert("비밀번호와 비밀번호 확인을 일치하게 입력해주세요!");
+        if (!nickname.trim()) return alert("닉네임을 제대로 입력해주세요!");
+
+        try {
+            const response = await axios.post("https://moneyfulpublicpolicy.co.kr/register", {
+                id,
+                password,
+                nickname,
+            })
+            const data = response.data;
+            if (data.success) {
+                console.log("signup success");
+                navigate("/login");
+            } else {
+                alert("Signup failed");
+            }
+        } catch (error) {
+            console.error("Signup error:", error);
+            alert("Signup failed");
+        }
+
     };
 
     return (
@@ -20,8 +47,11 @@ const SignUpForm = () => {
                     <S.Input
                         id="userId"
                         type="text"
-                        value={userId}
-                        onChange={(e) => setUserId(e.target.value)}
+                        value={id}
+                        onChange={(e) => setId(e.target.value)}
+                        required
+                        minLength={4}
+                        maxLength={10}
                     />
                 </S.InputDiv>
                 <S.InputDiv>
@@ -29,8 +59,11 @@ const SignUpForm = () => {
                     <S.Input
                         id="pw"
                         type="password"
-                        value={pw}
-                        onChange={(e) => setPw(e.target.value)}
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        required
+                        minLength={4}
+                        maxLength={15}
                     />
                 </S.InputDiv>
                 <S.InputDiv>
@@ -38,8 +71,11 @@ const SignUpForm = () => {
                     <S.Input
                         id="pwConfirm"
                         type="password"
-                        value={pwConfirm}
-                        onChange={(e) => setPwConfirm(e.target.value)}
+                        value={passwordConfirm}
+                        onChange={(e) => setPasswordConfirm(e.target.value)}
+                        required
+                        minLength={4}
+                        maxLength={15}
                     />
                 </S.InputDiv>
                 <S.InputDiv>
@@ -47,8 +83,11 @@ const SignUpForm = () => {
                     <S.Input
                         id="nickName"
                         type="text"
-                        value={nickName}
-                        onChange={(e) => setNickName(e.target.value)}
+                        value={nickname}
+                        onChange={(e) => setNickname(e.target.value)}
+                        required
+                        minLength={1}
+                        maxLength={10}
                     />
                 </S.InputDiv>
                 <S.ButtonDiv>
