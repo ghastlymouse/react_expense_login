@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import * as S from './MyProfile.styled'
 import { useDispatch, useSelector } from 'react-redux';
-import axios from 'axios';
 import { setUserInfo } from '../../redux/slices/auth.slice';
 import { authApi } from '../../api/axios';
 

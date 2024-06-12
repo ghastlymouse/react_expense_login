@@ -33,7 +33,6 @@ export const RightDiv = styled.div`
 `;
 
 export const NavButton = styled.button`
-    display: ${props => props.$display};
     border: none;
     background-color: transparent;
     font-family: inherit;
@@ -46,7 +45,6 @@ export const ProfileDiv = styled.div`
     flex-direction: row;
     align-items: center;
     gap: 10px;
-    display: ${props => props.$display};
 `;
 
 export const ProfileImage = styled.img`
@@ -55,12 +53,9 @@ export const ProfileImage = styled.img`
     border-radius: 25px;
 `;
 
-export const Span = styled.span`
-    
-`;
+export const Span = styled.span``;
 
 export const Button = styled.button`
-    display: ${props => props.$display};
     border: none;
     border-radius: 4px;
     background-color: ${props => props.$color || "blue"};

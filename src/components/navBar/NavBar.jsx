@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect } from 'react'
 import * as S from './NavBar.styled'
-import { Link, useNavigate } from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, setUserInfo } from '../../redux/slices/auth.slice';
 import { authApi } from '../../api/axios';
@@ -39,16 +39,14 @@ const NavBar = () => {
         <S.Container>
             <S.LeftDiv>
                 <S.NavButton onClick={() => navigate("/")}>Home</S.NavButton>{" "}
-                <S.NavButton $display={isLogin ? "block" : "none"} onClick={() => navigate("/mypage")}>내 프로필</S.NavButton>
+                <S.NavButton onClick={() => navigate("/mypage")}>내 프로필</S.NavButton>
             </S.LeftDiv>
             <S.RightDiv>
-                <S.ProfileDiv $display={isLogin ? "flex" : "none"}>
+                <S.ProfileDiv>
                     <S.ProfileImage src={avatar} />
                     <S.Span>"{nickname}"님 환영합니다!</S.Span>
                 </S.ProfileDiv>
-                <S.Button $display={isLogin ? "none" : "block"} onClick={() => navigate("/login")}>로그인</S.Button>
-                <S.Button $display={isLogin ? "none" : "block"} onClick={() => navigate("/signup")} $color="green">회원가입</S.Button>
-                <S.Button $display={isLogin ? "block" : "none"} onClick={() => handleLogout()} $color="red">로그아웃</S.Button>
+                <S.Button onClick={() => handleLogout()} $color="red">로그아웃</S.Button>
             </S.RightDiv>
 
         </S.Container>
