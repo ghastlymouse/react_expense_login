@@ -1,5 +1,5 @@
 import React, { useRef, useState } from 'react'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
 import { addExpense } from '../../redux/slices/expense';
@@ -7,6 +7,9 @@ import { changeMonth } from '../../redux/slices/listMonth';
 
 const AddExpense = () => {
     const dispatch = useDispatch();
+    const { isLogin } = useSelector(state => state.auth);
+    const { userInfo } = useSelector(state => state.auth);
+    console.log(userInfo);
 
     const [openModal, setOpenModal] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
@@ -14,22 +17,28 @@ const AddExpense = () => {
 
     const handleSubmitForm = (event) => {
         event.preventDefault();
+        if (!isLogin) {
+            setAlertMessage("지출 내역을 추가하려면 로그인을 하셔합니다!");
+            return setOpenModal(true);
+        }
+
         const formData = new FormData(event.target);
         const date = formData.get("date");
         const item = formData.get("item");
         const amount = formData.get("amount");
         const description = formData.get("description");
+        const createdById = userInfo.id;
 
         if (!item.trim()) {
-            setAlertMessage(`항목을 제대로 입력하세요!`);
+            setAlertMessage(`유효한 항목을 입력해주세요!`);
             return setOpenModal(true);
         }
         if (!amount.trim() || +amount < 0) {
-            setAlertMessage(`유효한 금액을 입력하세요!`);
+            setAlertMessage(`유효한 금액을 입력해주세요!`);
             return setOpenModal(true);
         }
         if (!description.trim()) {
-            setAlertMessage(`내용을 제대로 입력하세요!`);
+            setAlertMessage(`유효한 내용을 입력해주세요!`);
             return setOpenModal(true);
         }
         event.target.reset();
@@ -39,6 +48,7 @@ const AddExpense = () => {
             item,
             amount: +amount,
             description,
+            createdById,
         }));
         const selectedMonth = +date.slice(5, 7);
         dispatch(changeMonth(selectedMonth));
@@ -71,7 +81,7 @@ const AddExpense = () => {
                         type="date"
                         min={thisYearFirstDay}
                         max={thisYearLastDay}
-                        required />
+                    />
                 </StDiv>
                 <StDiv>
                     <label htmlFor='item'>항목</label>
@@ -79,7 +89,7 @@ const AddExpense = () => {
                         name="item"
                         type="text"
                         placeholder='지출 항목'
-                        required />
+                    />
                 </StDiv>
                 <StDiv>
                     <label htmlFor='amount'>금액</label>
@@ -87,7 +97,7 @@ const AddExpense = () => {
                         name="amount"
                         type="number"
                         placeholder='지출 금액'
-                        required />
+                    />
                 </StDiv>
                 <StDiv>
                     <label htmlFor='description'>내용</label>
@@ -95,7 +105,7 @@ const AddExpense = () => {
                         name="description"
                         type="text"
                         placeholder='지출 내용'
-                        required />
+                    />
                 </StDiv>
                 <StSubmitBtn type="submit">추가</StSubmitBtn>
             </StForm>
