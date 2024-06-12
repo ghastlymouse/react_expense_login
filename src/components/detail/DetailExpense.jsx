@@ -1,10 +1,8 @@
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch } from 'react-redux';
-import { deleteExpense, updateExpense } from '../../redux/slices/expense';
-import { fetchExpense } from '../../api/expense';
-import { useQuery } from '@tanstack/react-query';
+import { editExpense, fetchExpense, deleteExpense } from '../../api/expense';
+import { useMutation, useQuery } from '@tanstack/react-query';
 
 const DetailExpense = () => {
     const [openModal, setOpenModal] = useState(false);
@@ -12,7 +10,7 @@ const DetailExpense = () => {
     const [modalMsg, setModalMsg] = useState("");
     const modalBg = useRef();
 
-    const dispatch = useDispatch();
+    const navigate = useNavigate();
     const currentId = useRef(useParams().postId).current;
 
     const { data: prevExpense = [], isPending, isError } = useQuery({
@@ -20,28 +18,39 @@ const DetailExpense = () => {
         queryFn: fetchExpense,
     });
 
-    const navigate = useNavigate();
-    const handleComeBackHome = () => {
-        navigate("/");
-    }
+    const editMutation = useMutation({
+        mutationFn: editExpense,
+        onSuccess: () => {
+            navigate("/");
+        },
+    });
+
+    const deleteMutation = useMutation({
+        mutationFn: deleteExpense,
+        onSuccess: () => {
+            navigate("/");
+        },
+    });
 
     const handleUpdate = (event) => {
         event.preventDefault();
         const id = currentId;
         const formData = new FormData(event.target);
         const date = formData.get("date");
+        const month = date.slice(5, 7);
         const item = formData.get("item");
         const amount = formData.get("amount");
         const description = formData.get("description");
+        const createdBy = prevExpense.createdBy;
 
         if (!date.trim()) {
             setIsBtnOpen(false);
-            setModalMsg("날짜를 제대로 입력해주세요!");
+            setModalMsg("유효한 날짜를 입력해주세요!");
             return setOpenModal(true);
         }
         if (!item.trim()) {
             setIsBtnOpen(false);
-            setModalMsg("항목을 제대로 입력해주세요!");
+            setModalMsg("유효한 항목을 입력해주세요!");
             return setOpenModal(true);
         }
         if (!amount.trim() || +amount < 0) {
@@ -51,17 +60,25 @@ const DetailExpense = () => {
         }
         if (!description.trim()) {
             setIsBtnOpen(false);
-            setModalMsg("내용을 제대로 입력해주세요!");
+            setModalMsg("유효한 내용을 입력해주세요!");
             return setOpenModal(true);
         }
 
-        dispatch(updateExpense({ id, date, item, amount, description }));
-        handleComeBackHome();
+        const newExpense = {
+            id,
+            month: +month,
+            date,
+            item,
+            amount: +amount,
+            description,
+            createdBy,
+        };
+
+        editMutation.mutate(newExpense);
     }
 
-    const handleDelete = (currentId) => {
-        handleComeBackHome();
-        dispatch(deleteExpense({ currentId }));
+    const handleDelete = () => {
+        deleteMutation.mutate(currentId);
     }
 
     if (isPending) return <div>Loading ... </div>;
@@ -82,7 +99,7 @@ const DetailExpense = () => {
                         }} $isBtnOpen={!isBtnOpen}>확인</ModalBtn>
                         <ModalBtn onClick={() => {
                             setOpenModal(false);
-                            handleDelete(currentId);
+                            handleDelete();
                         }}
                             $color="red"
                             $isBtnOpen={isBtnOpen}>삭제</ModalBtn>
@@ -133,7 +150,7 @@ const DetailExpense = () => {
                         setOpenModal(true)
                         setIsBtnOpen(true)
                     }}>삭제</StDetailBtn>
-                    <StDetailBtn $color="gray" type='button' onClick={handleComeBackHome}>돌아가기</StDetailBtn>
+                    <StDetailBtn $color="gray" type='button' onClick={() => navigate("/")}>돌아가기</StDetailBtn>
                 </StBtnDiv>
 
             </StDetailForm>
