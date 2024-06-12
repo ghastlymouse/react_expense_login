@@ -2,12 +2,12 @@ import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate, useParams } from 'react-router-dom';
 import { editExpense, fetchExpense, deleteExpense } from '../../api/expense';
-import { useMutation, useQuery } from '@tanstack/react-query';
+import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
 
 const DetailExpense = () => {
     const { userInfo } = useSelector(state => state.auth);
-    const currentUserId = userInfo.id;
+    const currentUserId = userInfo?.id;
 
     const [openModal, setOpenModal] = useState(false);
     const [isBtnOpen, setIsBtnOpen] = useState(true);
@@ -24,10 +24,12 @@ const DetailExpense = () => {
 
     const isWriter = currentUserId === prevExpense.createdBy;
 
+    const queryClient = useQueryClient();
     const editMutation = useMutation({
         mutationFn: editExpense,
         onSuccess: () => {
             navigate("/");
+            queryClient.invalidateQueries(["expenses"]);
         },
     });
 
@@ -86,6 +88,28 @@ const DetailExpense = () => {
     const handleDelete = () => {
         deleteMutation.mutate(currentId);
     }
+
+    const WriterButton = () => {
+        return (
+            <StBtnDiv>
+                <StDetailBtn $color="green" type='submit'>수정</StDetailBtn>
+                <StDetailBtn $color="red" type='button' onClick={() => {
+                    setModalMsg("정말로 삭제하시겠습니까?")
+                    setOpenModal(true)
+                    setIsBtnOpen(true)
+                }}>삭제</StDetailBtn>
+                <StDetailBtn $color="gray" type='button' onClick={() => navigate("/")}>돌아가기</StDetailBtn>
+            </StBtnDiv>
+        );
+    };
+
+    const GuestButton = () => {
+        return (
+            <StBtnDiv>
+                <StDetailBtn $color="gray" type='button' onClick={() => navigate("/")}>돌아가기</StDetailBtn>
+            </StBtnDiv>
+        );
+    };
 
     if (isPending) return <div>Loading ... </div>;
     if (isError) return <div>데이터 조회 중 오류가 발생했습니다.</div>;
@@ -153,16 +177,7 @@ const DetailExpense = () => {
                         disabled={!isWriter}
                     />
                 </StDiv>
-                <StBtnDiv>
-                    <StDetailBtn $color="green" $display={isWriter ? "block" : "none"} type='submit'>수정</StDetailBtn>
-                    <StDetailBtn $color="red" $display={isWriter ? "block" : "none"} type='button' onClick={() => {
-                        setModalMsg("정말로 삭제하시겠습니까?")
-                        setOpenModal(true)
-                        setIsBtnOpen(true)
-                    }}>삭제</StDetailBtn>
-                    <StDetailBtn $color="gray" $display="block" type='button' onClick={() => navigate("/")}>돌아가기</StDetailBtn>
-                </StBtnDiv>
-
+                {isWriter ? <WriterButton /> : <GuestButton />}
             </StDetailForm>
         </StDetailSection>
     )
@@ -171,7 +186,6 @@ const DetailExpense = () => {
 export default DetailExpense
 
 const StDetailBtn = styled.button`
-    display: ${props => props.$display};
     width: 10%;
     height: 35px;
     border: none;
