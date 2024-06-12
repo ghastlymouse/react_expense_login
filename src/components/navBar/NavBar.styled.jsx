@@ -41,8 +41,22 @@ export const NavButton = styled.button`
     cursor: pointer;
 `;
 
-export const Span = styled.span`
+export const ProfileDiv = styled.div`
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 10px;
     display: ${props => props.$display};
+`;
+
+export const ProfileImage = styled.img`
+    width: 50px;
+    height: 50px;
+    border-radius: 25px;
+`;
+
+export const Span = styled.span`
+    
 `;
 
 export const Button = styled.button`
