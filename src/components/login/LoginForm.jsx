@@ -1,9 +1,9 @@
 import React, { useState } from 'react'
 import * as S from './LoginForm.styled'
 import { useNavigate } from 'react-router-dom'
-import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/slices/auth.slice';
+import { authApi } from '../../api/axios';
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -21,7 +21,7 @@ const LoginForm = () => {
         if (!password.trim()) return setIsPasswordValid(false);
 
         try {
-            const response = await axios.post("https://moneyfulpublicpolicy.co.kr/login",
+            const response = await authApi.post("/login",
                 {
                     id,
                     password,

@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import * as S from './signUpForm.styled'
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
+import { authApi } from '../../api/axios';
 
 const SignUpForm = () => {
     const navigate = useNavigate();
@@ -29,7 +29,7 @@ const SignUpForm = () => {
         if (!nickname.trim()) return setIsNicknameValid(false);
 
         try {
-            const response = await axios.post("https://moneyfulpublicpolicy.co.kr/register", {
+            const response = await authApi.post("/register", {
                 id,
                 password,
                 nickname,

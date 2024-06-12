@@ -3,6 +3,7 @@ import * as S from './MyProfile.styled'
 import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { setUserInfo } from '../../redux/slices/auth.slice';
+import { authApi } from '../../api/axios';
 
 const MyProfile = () => {
     const dispatch = useDispatch();
@@ -18,7 +19,7 @@ const MyProfile = () => {
         event.preventDefault();
         try {
             const token = localStorage.getItem("accessToken");
-            const response = await axios.patch("https://moneyfulpublicpolicy.co.kr/profile",
+            const response = await authApi.patch("/profile",
                 {
                     nickname: newName,
                 },
@@ -47,7 +48,7 @@ const MyProfile = () => {
         event.preventDefault();
         try {
             const token = localStorage.getItem("accessToken");
-            const response = await axios.patch("https://moneyfulpublicpolicy.co.kr/profile",
+            const response = await authApi.patch("/profile",
                 {
                     avatar: newAvatar,
                 },
@@ -95,6 +96,7 @@ const MyProfile = () => {
                     onChange={(e) => setNewName(e.target.value)}
                     minLength={1}
                     maxLength={10}
+                    required
                 />
                 <S.Button type="submit">닉네임 변경</S.Button>
             </S.Form>
@@ -104,6 +106,7 @@ const MyProfile = () => {
                     type="file"
                     accept="image/*"
                     onChange={handleSelectImage}
+                    required
                 />
                 <S.Button type="submit">프로필 사진 변경</S.Button>
             </S.Form>

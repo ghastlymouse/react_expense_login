@@ -3,7 +3,7 @@ import * as S from './NavBar.styled'
 import { Link, useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, setUserInfo } from '../../redux/slices/auth.slice';
-import axios from 'axios';
+import { authApi } from '../../api/axios';
 
 const NavBar = () => {
     const navigate = useNavigate();
@@ -23,29 +23,17 @@ const NavBar = () => {
     };
 
     useEffect(() => {
-        if (!isLogin) {
-            console.log("로그아웃 상태");
+        const fetchUserInfo = async () => {
+            try {
+                const response = await authApi.get("/user");
+                console.log(response.data.nickname);
+                dispatch(setUserInfo(response.data));
+            } catch (error) {
+                console.log("Failed to fetch user info:", error);
+            }
         };
-        if (isLogin) {
-            const fetchUserInfo = async () => {
-                try {
-                    const token = localStorage.getItem("accessToken");
-                    const response = await axios.get("https://moneyfulpublicpolicy.co.kr/user",
-                        {
-                            headers: {
-                                Authorization: `Bearer ${token}`,
-                            },
-                        }
-                    );
-                    console.log(response.data.nickname);
-                    dispatch(setUserInfo(response.data));
-                } catch (error) {
-                    console.log("Failed to fetch user info:", error);
-                }
-            };
-            fetchUserInfo();
-        }
-    }, [isLogin, navigate])
+        fetchUserInfo();
+    }, [isLogin])
 
     return (
         <S.Container>
