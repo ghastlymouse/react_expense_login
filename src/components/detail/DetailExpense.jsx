@@ -3,8 +3,13 @@ import styled from 'styled-components'
 import { useNavigate, useParams } from 'react-router-dom';
 import { editExpense, fetchExpense, deleteExpense } from '../../api/expense';
 import { useMutation, useQuery } from '@tanstack/react-query';
+import { useSelector } from 'react-redux';
 
 const DetailExpense = () => {
+    const { userInfo } = useSelector(state => state.auth);
+    const currentUserId = userInfo.id;
+    console.log(currentUserId);
+
     const [openModal, setOpenModal] = useState(false);
     const [isBtnOpen, setIsBtnOpen] = useState(true);
     const [modalMsg, setModalMsg] = useState("");
@@ -17,6 +22,9 @@ const DetailExpense = () => {
         queryKey: ["expenses", currentId],
         queryFn: fetchExpense,
     });
+
+    const isWriter = currentUserId === prevExpense.createdBy;
+    console.log(isWriter);
 
     const editMutation = useMutation({
         mutationFn: editExpense,
@@ -114,6 +122,7 @@ const DetailExpense = () => {
                         name="date"
                         type="date"
                         required
+                        disabled={!isWriter}
                     />
                 </StDiv>
 
@@ -123,6 +132,7 @@ const DetailExpense = () => {
                         name="item"
                         type="text"
                         required
+                        disabled={!isWriter}
                     />
                 </StDiv>
 
@@ -132,6 +142,7 @@ const DetailExpense = () => {
                         name="amount"
                         type="number"
                         required
+                        disabled={!isWriter}
                     />
                 </StDiv>
 
@@ -141,16 +152,17 @@ const DetailExpense = () => {
                         name="description"
                         type="text"
                         required
+                        disabled={!isWriter}
                     />
                 </StDiv>
                 <StBtnDiv>
-                    <StDetailBtn $color="green" type='submit'>수정</StDetailBtn>
-                    <StDetailBtn $color="red" type='button' onClick={() => {
+                    <StDetailBtn $color="green" $display={isWriter ? "block" : "none"} type='submit'>수정</StDetailBtn>
+                    <StDetailBtn $color="red" $display={isWriter ? "block" : "none"} type='button' onClick={() => {
                         setModalMsg("정말로 삭제하시겠습니까?")
                         setOpenModal(true)
                         setIsBtnOpen(true)
                     }}>삭제</StDetailBtn>
-                    <StDetailBtn $color="gray" type='button' onClick={() => navigate("/")}>돌아가기</StDetailBtn>
+                    <StDetailBtn $color="gray" $display="block" type='button' onClick={() => navigate("/")}>돌아가기</StDetailBtn>
                 </StBtnDiv>
 
             </StDetailForm>
@@ -161,6 +173,7 @@ const DetailExpense = () => {
 export default DetailExpense
 
 const StDetailBtn = styled.button`
+    display: ${props => props.$display};
     width: 10%;
     height: 35px;
     border: none;
