@@ -37,6 +37,7 @@ const SignUpForm = () => {
             const data = response.data;
             if (data.success) {
                 console.log("signup success");
+                alert("회원가입 성공!");
                 navigate("/login");
             } else {
                 alert("Signup failed");
@@ -105,7 +106,8 @@ const SignUpForm = () => {
                 </S.InputDiv>
                 <S.Span $display={isNicknameValid ? "none" : "block"}>유효한 닉네임을 입력해주세요!</S.Span>
                 <S.ButtonDiv>
-                    <S.Button $color="green">회원가입</S.Button>
+                    <S.Button type="submit" $color="green">회원가입</S.Button>
+                    <S.Button type="button" onClick={() => navigate("/login")}>로그인</S.Button>
                 </S.ButtonDiv>
             </S.Form>
         </S.Section>

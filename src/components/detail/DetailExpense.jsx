@@ -12,7 +12,7 @@ const DetailExpense = () => {
     const modalBg = useRef();
 
     const dispatch = useDispatch();
-    const currentId = useRef(useParams().id).current;
+    const currentId = useRef(useParams().postId).current;
     const [prevExpense] = expenses.filter(expense => expense.id === currentId);
 
     const navigate = useNavigate();
