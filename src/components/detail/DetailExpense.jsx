@@ -154,6 +154,7 @@ const StDetailBtn = styled.button`
 const StDetailSection = styled.section`
     background-color: white;
     width: 100%;
+    margin: 10px;
     padding: 20px;
     border: 5px solid black;
     border-radius: 10px;
