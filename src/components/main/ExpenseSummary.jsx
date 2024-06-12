@@ -1,3 +1,5 @@
+// 이건 진짜 못 하겠다.
+
 import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import styled from 'styled-components'

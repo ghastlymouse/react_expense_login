@@ -10,7 +10,7 @@ const Home = () => {
         <>
             <AddExpense />
             <MonthSelect />
-            <ExpenseSummary />
+            {/* <ExpenseSummary /> */}
             <ExpenseList />
         </>
     )

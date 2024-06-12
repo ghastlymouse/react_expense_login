@@ -1,11 +1,12 @@
 import React, { useRef, useState } from 'react'
 import styled from 'styled-components'
 import { useNavigate, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { deleteExpense, updateExpense } from '../../redux/slices/expense';
+import { fetchExpense } from '../../api/expense';
+import { useQuery } from '@tanstack/react-query';
 
 const DetailExpense = () => {
-    const { expenses } = useSelector(state => state.expenses);
     const [openModal, setOpenModal] = useState(false);
     const [isBtnOpen, setIsBtnOpen] = useState(true);
     const [modalMsg, setModalMsg] = useState("");
@@ -13,7 +14,11 @@ const DetailExpense = () => {
 
     const dispatch = useDispatch();
     const currentId = useRef(useParams().postId).current;
-    const [prevExpense] = expenses.filter(expense => expense.id === currentId);
+
+    const { data: prevExpense = [], isPending, isError } = useQuery({
+        queryKey: ["expenses", currentId],
+        queryFn: fetchExpense,
+    });
 
     const navigate = useNavigate();
     const handleComeBackHome = () => {
@@ -58,6 +63,9 @@ const DetailExpense = () => {
         handleComeBackHome();
         dispatch(deleteExpense({ currentId }));
     }
+
+    if (isPending) return <div>Loading ... </div>;
+    if (isError) return <div>데이터 조회 중 오류가 발생했습니다.</div>;
 
     return (
         <StDetailSection>

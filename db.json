@@ -12,8 +12,8 @@
     },
     {
       "id": "a5c0d8de-d010-4d07-9934-29765051a7ea",
-      "month": 1,
-      "date": "2024-01-07",
+      "month": 2,
+      "date": "2024-02-07",
       "item": "개인사업",
       "amount": 1000,
       "description": "X(구 트위터)",
@@ -69,6 +69,69 @@
       "description": "세광양대창",
       "createdBy": "Me",
       "userId": "4111207-5f9c-4e20-912f"
+    },
+    {
+      "id": "539781fd-145e-4da9-91b6-b3fc3c7610ca",
+      "month": 6,
+      "date": "2024-06-12",
+      "item": "도서",
+      "amount": 15000,
+      "description": "노인과 바다",
+      "createdBy": "wjdgusdnr2"
+    },
+    {
+      "id": "aa5016d4-91e3-407c-b1c0-87e766cc6f30",
+      "month": 6,
+      "date": "2024-06-11",
+      "item": "간식",
+      "amount": 2000,
+      "description": "아이스크림",
+      "createdBy": "wjdgusdnr2"
+    },
+    {
+      "id": "ae1b53eb-4f13-4478-8a06-706fca8a356b",
+      "month": 7,
+      "date": "2024-07-05",
+      "item": "차비",
+      "amount": 15000,
+      "description": "택시비",
+      "createdBy": "wjdgusdnr2"
+    },
+    {
+      "id": "96f968e9-2788-41ef-a17c-ec40810bd7e7",
+      "month": 12,
+      "date": "2024-12-09",
+      "item": "파티",
+      "amount": 200000,
+      "description": "내 생파",
+      "createdBy": "wjdgusdnr2"
+    },
+    {
+      "id": "9bf19b0f-0779-40c7-8de6-652caa267f65",
+      "month": 6,
+      "date": "2024-06-12",
+      "item": "식비",
+      "amount": 30000,
+      "description": "치",
+      "createdBy": "wjdgusdnr2"
+    },
+    {
+      "id": "d589bdf1-3ebc-4431-a1f4-a75a06b60d0a",
+      "month": 6,
+      "date": "2024-06-13",
+      "item": "식비",
+      "amount": 40000,
+      "description": "치킨 2마리",
+      "createdBy": "wjdgusdnr2"
+    },
+    {
+      "id": "69fb52d3-587c-455f-ab46-b83168101f8e",
+      "month": 12,
+      "date": "2024-12-31",
+      "item": "파티",
+      "amount": 400000,
+      "description": "연말파티",
+      "createdBy": "wjdgusdnr2"
     }
   ]
 }

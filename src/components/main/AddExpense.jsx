@@ -2,13 +2,22 @@ import React, { useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
 import { v4 as uuidv4 } from 'uuid';
-import { addExpense } from '../../redux/slices/expense';
+import { addExpense } from '../../api/expense'
 import { changeMonth } from '../../redux/slices/listMonth';
+import { useMutation, useQueryClient } from '@tanstack/react-query';
 
 const AddExpense = () => {
     const dispatch = useDispatch();
-    const { isLogin } = useSelector(state => state.auth);
     const { userInfo } = useSelector(state => state.auth);
+
+    const queryClient = useQueryClient();
+    const addMutation = useMutation({
+        mutationFn: addExpense,
+        onSuccess: () => {
+            queryClient.invalidateQueries(["expenses"]);
+        },
+    });
+
     console.log(userInfo);
 
     const [openModal, setOpenModal] = useState(false);
@@ -17,10 +26,6 @@ const AddExpense = () => {
 
     const handleSubmitForm = (event) => {
         event.preventDefault();
-        if (!isLogin) {
-            setAlertMessage("지출 내역을 추가하려면 로그인을 하셔합니다!");
-            return setOpenModal(true);
-        }
 
         const formData = new FormData(event.target);
         const date = formData.get("date");
@@ -28,7 +33,7 @@ const AddExpense = () => {
         const item = formData.get("item");
         const amount = formData.get("amount");
         const description = formData.get("description");
-        const createdById = userInfo.id;
+        const createdBy = userInfo.id;
 
         if (!item.trim()) {
             setAlertMessage(`유효한 항목을 입력해주세요!`);
@@ -43,19 +48,22 @@ const AddExpense = () => {
             return setOpenModal(true);
         }
         event.target.reset();
-        dispatch(addExpense({
+        const newExpense = {
             id: uuidv4(),
             month,
             date,
             item,
             amount: +amount,
             description,
-            createdById,
-        }));
+            createdBy,
+        };
+
+        addMutation.mutate(newExpense);
+
         const selectedMonth = month;
         dispatch(changeMonth(selectedMonth));
         setAlertMessage(`${selectedMonth}월의 지출 내역에 추가되었습니다!`);
-        setOpenModal(true);
+        return setOpenModal(true);
     }
 
     const thisYearFirstDay = `${new Date().getFullYear()}-01-01`;

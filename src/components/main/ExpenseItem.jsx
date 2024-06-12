@@ -3,7 +3,7 @@ import { useNavigate } from 'react-router-dom';
 import styled from 'styled-components';
 
 const ExpenseItem = ({ expense }) => {
-    const { id, date, item, amount, description } = expense;
+    const { id, date, item, amount, description, createdBy } = expense;
     const navigate = useNavigate();
     const handleGoToDetail = (id) => {
         navigate(`/detail/${id}`);
@@ -28,11 +28,14 @@ const ExpenseItem = ({ expense }) => {
                     {item} - {longToShort(description)}<br />
                 </StSpan>
             </div>
-            <div>
+            <StSpanDiv>
+                <StSpan>
+                    {createdBy}님의 지출
+                </StSpan>
                 <StSpan>
                     {amount.toLocaleString()}원
                 </StSpan>
-            </div>
+            </StSpanDiv>
         </StDiv>
     )
 }
@@ -59,4 +62,11 @@ const StSpan = styled.span`
     padding: 5px;
     background-color: transparent;
     color: #000000;
+`;
+
+const StSpanDiv = styled.div`
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 `;
