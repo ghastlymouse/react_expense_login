@@ -98,21 +98,12 @@
       "createdBy": "wjdgusdnr2"
     },
     {
-      "id": "96f968e9-2788-41ef-a17c-ec40810bd7e7",
-      "month": 12,
-      "date": "2024-12-09",
-      "item": "파티",
-      "amount": 200000,
-      "description": "내 생파",
-      "createdBy": "wjdgusdnr2"
-    },
-    {
       "id": "9bf19b0f-0779-40c7-8de6-652caa267f65",
       "month": 6,
       "date": "2024-06-12",
       "item": "식비",
       "amount": 30000,
-      "description": "치",
+      "description": "치킨",
       "createdBy": "wjdgusdnr2"
     },
     {
@@ -122,15 +113,6 @@
       "item": "식비",
       "amount": 40000,
       "description": "치킨 2마리",
-      "createdBy": "wjdgusdnr2"
-    },
-    {
-      "id": "69fb52d3-587c-455f-ab46-b83168101f8e",
-      "month": 12,
-      "date": "2024-12-31",
-      "item": "파티",
-      "amount": 400000,
-      "description": "연말파티",
       "createdBy": "wjdgusdnr2"
     }
   ]
