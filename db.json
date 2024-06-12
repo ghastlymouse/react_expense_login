@@ -73,20 +73,11 @@
     {
       "month": 6,
       "date": "2024-06-12",
-      "item": "도서eheheh",
-      "amount": 15000111,
-      "description": "노인과 바다11",
+      "item": "도서",
+      "amount": 15000,
+      "description": "노인과 바다",
       "createdBy": "wjdgusdnr2",
       "id": "539781fd-145e-4da9-91b6-b3fc3c7610ca"
-    },
-    {
-      "id": "aa5016d4-91e3-407c-b1c0-87e766cc6f30",
-      "month": 6,
-      "date": "2024-06-11",
-      "item": "간식",
-      "amount": 2000,
-      "description": "아이스크림",
-      "createdBy": "wjdgusdnr2"
     },
     {
       "id": "ae1b53eb-4f13-4478-8a06-706fca8a356b",
@@ -98,22 +89,13 @@
       "createdBy": "wjdgusdnr2"
     },
     {
-      "id": "9bf19b0f-0779-40c7-8de6-652caa267f65",
       "month": 6,
-      "date": "2024-06-12",
+      "date": "2024-06-11",
       "item": "식비",
-      "amount": 30000,
-      "description": "치킨",
-      "createdBy": "wjdgusdnr2"
-    },
-    {
-      "id": "d589bdf1-3ebc-4431-a1f4-a75a06b60d0a",
-      "month": 6,
-      "date": "2024-06-13",
-      "item": "식비",
-      "amount": 40000,
+      "amount": 50000,
       "description": "치킨 2마리",
-      "createdBy": "wjdgusdnr2"
+      "createdBy": "wjdgusdnr2",
+      "id": "9bf19b0f-0779-40c7-8de6-652caa267f65"
     }
   ]
 }
