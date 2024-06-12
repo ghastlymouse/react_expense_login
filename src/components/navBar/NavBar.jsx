@@ -12,7 +12,6 @@ const NavBar = () => {
     const { userInfo } = useSelector(state => state.auth);
     const nickname = userInfo?.nickname;
     const avatar = userInfo?.avatar;
-    console.log(userInfo);
 
     const handleLogout = () => {
         const isLogout = confirm("정말 로그아웃 하시겠습니까?");
@@ -26,10 +25,9 @@ const NavBar = () => {
         const fetchUserInfo = async () => {
             try {
                 const response = await authApi.get("/user");
-                console.log(response.data.nickname);
                 dispatch(setUserInfo(response.data));
             } catch (error) {
-                console.log("Failed to fetch user info:", error);
+                console.error("Failed to fetch user info:", error);
             }
         };
         fetchUserInfo();

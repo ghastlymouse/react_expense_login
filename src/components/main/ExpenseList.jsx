@@ -12,7 +12,6 @@ const ExpenseList = () => {
         queryKey: ["expenses"],
         queryFn: fetchExpenses,
     });
-    console.log(expenseList);
 
     const selectedList = expenseList.filter(expense => expense.month === selectedMonth)
 

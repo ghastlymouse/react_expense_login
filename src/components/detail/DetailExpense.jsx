@@ -8,7 +8,6 @@ import { useSelector } from 'react-redux';
 const DetailExpense = () => {
     const { userInfo } = useSelector(state => state.auth);
     const currentUserId = userInfo.id;
-    console.log(currentUserId);
 
     const [openModal, setOpenModal] = useState(false);
     const [isBtnOpen, setIsBtnOpen] = useState(true);
@@ -24,7 +23,6 @@ const DetailExpense = () => {
     });
 
     const isWriter = currentUserId === prevExpense.createdBy;
-    console.log(isWriter);
 
     const editMutation = useMutation({
         mutationFn: editExpense,

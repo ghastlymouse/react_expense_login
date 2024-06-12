@@ -36,7 +36,6 @@ const SignUpForm = () => {
             })
             const data = response.data;
             if (data.success) {
-                console.log("signup success");
                 alert("회원가입 성공!");
                 navigate("/login");
             } else {

@@ -18,8 +18,6 @@ const AddExpense = () => {
         },
     });
 
-    console.log(userInfo);
-
     const [openModal, setOpenModal] = useState(false);
     const [alertMessage, setAlertMessage] = useState("");
     const modalBg = useRef();

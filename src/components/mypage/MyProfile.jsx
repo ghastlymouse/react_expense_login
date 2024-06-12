@@ -29,7 +29,6 @@ const MyProfile = () => {
                     },
                 }
             );
-            console.log(response);
             if (response.data.success) {
                 dispatch(setUserInfo({ ...userInfo, nickname: newName }));
                 alert("닉네임이 변경되었습니다.");
@@ -58,9 +57,7 @@ const MyProfile = () => {
                     },
                 }
             );
-            console.log(response);
             if (response.data.success) {
-                console.log(response.data.avatar);
                 dispatch(setUserInfo({ ...userInfo, avatar: response.data.avatar }));
                 alert("프로필 사진이 변경되었습니다.");
                 setNewName("");
