@@ -28,7 +28,7 @@ const Router = () => {
                 <Route path='/login' element={<PublicRoutes element={Login} />} />
                 <Route path='/signup' element={<PublicRoutes element={SignUp} />} />
                 <Route path='/' element={<PrivateRoutes element={DefalutLayout} />}>
-                    <Route path='/' element={<PrivateRoutes element={Home} />} />
+                    <Route index element={<PrivateRoutes element={Home} />} />
                     <Route path='/mypage' element={<PrivateRoutes element={MyPage} />} />
                     <Route path='/detail/:postId' element={<PrivateRoutes element={Details} />} />
                 </Route>

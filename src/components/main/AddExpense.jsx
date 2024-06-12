@@ -24,6 +24,7 @@ const AddExpense = () => {
 
         const formData = new FormData(event.target);
         const date = formData.get("date");
+        const month = +date.slice(5, 7);
         const item = formData.get("item");
         const amount = formData.get("amount");
         const description = formData.get("description");
@@ -44,13 +45,14 @@ const AddExpense = () => {
         event.target.reset();
         dispatch(addExpense({
             id: uuidv4(),
+            month,
             date,
             item,
             amount: +amount,
             description,
             createdById,
         }));
-        const selectedMonth = +date.slice(5, 7);
+        const selectedMonth = month;
         dispatch(changeMonth(selectedMonth));
         setAlertMessage(`${selectedMonth}월의 지출 내역에 추가되었습니다!`);
         setOpenModal(true);
