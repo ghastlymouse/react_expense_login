@@ -1,6 +1,6 @@
 import React from 'react'
 import { useDispatch, useSelector } from 'react-redux';
-import styled from 'styled-components';
+import * as S from "./AddExpense.styled";
 import { v4 as uuidv4 } from 'uuid';
 import { addExpense } from '../../api/expense'
 import { changeMonth } from '../../redux/slices/listMonth';
@@ -90,90 +90,44 @@ const AddExpense = () => {
 
     return (
         <>
-            <StForm onSubmit={handleSubmitForm}>
-                <StDiv>
+            <S.Form onSubmit={handleSubmitForm}>
+                <S.Div>
                     <label htmlFor='date'>날짜</label>
-                    <StInput
+                    <S.Input
                         name="date"
                         type="date"
                         min={thisYearFirstDay}
                         max={thisYearLastDay}
                     />
-                </StDiv>
-                <StDiv>
+                </S.Div>
+                <S.Div>
                     <label htmlFor='item'>항목</label>
-                    <StInput
+                    <S.Input
                         name="item"
                         type="text"
                         placeholder='지출 항목'
                     />
-                </StDiv>
-                <StDiv>
+                </S.Div>
+                <S.Div>
                     <label htmlFor='amount'>금액</label>
-                    <StInput
+                    <S.Input
                         name="amount"
                         type="number"
                         placeholder='지출 금액'
                     />
-                </StDiv>
-                <StDiv>
+                </S.Div>
+                <S.Div>
                     <label htmlFor='description'>내용</label>
-                    <StInput
+                    <S.Input
                         name="description"
                         type="text"
                         placeholder='지출 내용'
                     />
-                </StDiv>
-                <StSubmitBtn type="submit">추가</StSubmitBtn>
-            </StForm>
+                </S.Div>
+                <S.SubmitBtn type="submit">추가</S.SubmitBtn>
+            </S.Form>
         </>
     )
 }
 
 export default AddExpense
-
-const StForm = styled.form`
-    width: 100%;
-    background-color: white;
-    border: 5px solid black;
-    border-radius: 8px;
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 10px;
-    padding: 20px;
-    margin: 10px;
-`;
-
-const StSubmitBtn = styled.button`
-    border: none;
-    border-radius: 4px;
-    background-color: blue;
-    padding: 10px 20px;
-    width: 7%;
-    height: 40px;
-    color: white;
-    font-family: inherit;
-    font-size: 16px;
-    cursor: pointer;
-    &:hover{
-        filter:brightness(0.8);
-    }
-`;
-
-const StDiv = styled.div`
-    width: 25%;
-    display: flex;
-    flex-direction: column;
-`;
-
-const StInput = styled.input`
-    width: 90%;
-    height: 30px;
-    background-color: #e2dbdb;
-    border: 1px solid black;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: inherit;
-`;
