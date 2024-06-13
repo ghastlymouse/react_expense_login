@@ -1,21 +1,20 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import styled from 'styled-components'
 import { useNavigate, useParams } from 'react-router-dom';
 import { editExpense, fetchExpense, deleteExpense } from '../../api/expense';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { useSelector } from 'react-redux';
+import Swal from 'sweetalert2';
 
 const DetailExpense = () => {
     const { userInfo } = useSelector(state => state.auth);
     const currentUserId = userInfo?.id;
 
-    const [openModal, setOpenModal] = useState(false);
-    const [isBtnOpen, setIsBtnOpen] = useState(true);
-    const [modalMsg, setModalMsg] = useState("");
-    const modalBg = useRef();
-
     const navigate = useNavigate();
     const currentId = useRef(useParams().postId).current;
+
+    const thisYearFirstDay = `${new Date().getFullYear()}-01-01`;
+    const thisYearLastDay = `${new Date().getFullYear()}-12-31`;
 
     const { data: prevExpense = [], isPending, isError } = useQuery({
         queryKey: ["expenses", currentId],
@@ -52,24 +51,36 @@ const DetailExpense = () => {
         const createdBy = prevExpense.createdBy;
 
         if (!date.trim()) {
-            setIsBtnOpen(false);
-            setModalMsg("유효한 날짜를 입력해주세요!");
-            return setOpenModal(true);
+            return Swal.fire({
+                icon: "question",
+                title: "흠..",
+                text: "유효한 날짜인가요?",
+                confirmButtonText: "다시",
+            });
         }
         if (!item.trim()) {
-            setIsBtnOpen(false);
-            setModalMsg("유효한 항목을 입력해주세요!");
-            return setOpenModal(true);
+            return Swal.fire({
+                icon: "question",
+                title: "흠..",
+                text: "유효한 항목인가요?",
+                confirmButtonText: "다시",
+            });
         }
         if (!amount.trim() || +amount < 0) {
-            setIsBtnOpen(false);
-            setModalMsg("유효한 금액을 입력해주세요!");
-            return setOpenModal(true);
+            return Swal.fire({
+                icon: "question",
+                title: "흠..",
+                text: "유효한 금액인가요?",
+                confirmButtonText: "다시",
+            });
         }
         if (!description.trim()) {
-            setIsBtnOpen(false);
-            setModalMsg("유효한 내용을 입력해주세요!");
-            return setOpenModal(true);
+            return Swal.fire({
+                icon: "question",
+                title: "흠..",
+                text: "유효한 내용인가요?",
+                confirmButtonText: "다시",
+            });
         }
 
         const newExpense = {
@@ -82,6 +93,12 @@ const DetailExpense = () => {
             createdBy,
         };
 
+        Swal.fire({
+            icon: "success",
+            title: "수정 중..",
+            timer: 2000,
+            showConfirmButton: false,
+        })
         editMutation.mutate(newExpense);
     }
 
@@ -94,9 +111,19 @@ const DetailExpense = () => {
             <StBtnDiv>
                 <StDetailBtn $color="green" type='submit'>수정</StDetailBtn>
                 <StDetailBtn $color="red" type='button' onClick={() => {
-                    setModalMsg("정말로 삭제하시겠습니까?")
-                    setOpenModal(true)
-                    setIsBtnOpen(true)
+                    Swal.fire({
+                        icon: "warning",
+                        title: "헉!",
+                        text: "삭제하시겠습니까?ㅠ",
+                        confirmButtonColor: "red",
+                        confirmButtonText: "삭제",
+                        showCancelButton: true,
+                        cancelButtonText: "아니요",
+                    }).then(result => {
+                        if (result.isConfirmed) {
+                            handleDelete();
+                        }
+                    })
                 }}>삭제</StDetailBtn>
                 <StDetailBtn $color="gray" type='button' onClick={() => navigate("/")}>돌아가기</StDetailBtn>
             </StBtnDiv>
@@ -116,64 +143,51 @@ const DetailExpense = () => {
 
     return (
         <StDetailSection>
-            <ModalBackground $openModal={openModal} ref={modalBg} onClick={(e) => {
-                if (e.target === modalBg.current) {
-                    setOpenModal(false);
-                }
+            <StDetailForm onSubmit={(e) => {
+                e.preventDefault();
+                Swal.fire({
+                    icon: "question",
+                    title: "수정 하시겠습니까?",
+                    confirmButtonText: "수정",
+                    showCancelButton: true,
+                    cancelButtonText: "아니요",
+                }).then(result => {
+                    if (result.isConfirmed) {
+                        handleUpdate(e)
+                    }
+                })
             }}>
-                <Modal>
-                    <span>{modalMsg}</span>
-                    <ModalBtnDiv>
-                        <ModalBtn onClick={() => {
-                            setOpenModal(false);
-                        }} $isBtnOpen={!isBtnOpen}>확인</ModalBtn>
-                        <ModalBtn onClick={() => {
-                            setOpenModal(false);
-                            handleDelete();
-                        }}
-                            $color="red"
-                            $isBtnOpen={isBtnOpen}>삭제</ModalBtn>
-                        <ModalBtn onClick={() => setOpenModal(false)} $color="gray" $isBtnOpen={isBtnOpen}>취소</ModalBtn>
-                    </ModalBtnDiv>
-                </Modal>
-            </ModalBackground>
-            <StDetailForm onSubmit={handleUpdate}>
                 <StDiv>
                     <label htmlFor='date'>날짜</label>
                     <StInput defaultValue={prevExpense.date}
                         name="date"
                         type="date"
-                        required
+                        min={thisYearFirstDay}
+                        max={thisYearLastDay}
                         disabled={!isWriter}
                     />
                 </StDiv>
-
                 <StDiv>
                     <label htmlFor='item'>항목</label>
                     <StInput defaultValue={prevExpense.item}
                         name="item"
                         type="text"
-                        required
                         disabled={!isWriter}
                     />
                 </StDiv>
-
                 <StDiv>
                     <label htmlFor='amount'>금액</label>
                     <StInput defaultValue={prevExpense.amount}
                         name="amount"
                         type="number"
-                        required
                         disabled={!isWriter}
                     />
                 </StDiv>
-
                 <StDiv>
                     <label htmlFor='description'>내용</label>
                     <StInput defaultValue={prevExpense.description}
                         name="description"
                         type="text"
-                        required
                         disabled={!isWriter}
                     />
                 </StDiv>
@@ -238,53 +252,4 @@ const StInput = styled.input`
     border-radius: 10px;
     font-family: inherit;
     font-size: inherit;
-`;
-
-const ModalBackground = styled.div`
-    width: 100%;
-    height: 100%;
-    position: fixed;
-    top: 0;
-    left: 0;
-    display: ${props => props.$openModal ? "flex" : "none"};
-    justify-content: center;
-    background: rgba(0, 0, 0, 0.4);
-`;
-
-const Modal = styled.div`
-    width: 500px;
-    height: 150px;
-    background-color: white;
-    border: 3px solid black;
-    border-radius: 10px;
-    position: relative;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-`;
-
-const ModalBtnDiv = styled.div`
-    position: absolute;
-    display: flex;
-    flex-direction: row;
-    right: 10px;
-    bottom: 10px;
-`;
-
-const ModalBtn = styled.button`
-    border: none;
-    border-radius: 4px;
-    background-color: ${props => props.$color || "blue"};
-    display: ${props => (props.$isBtnOpen ? "block" : "none")};
-    padding: 10px 20px;
-    width: 80px;
-    height: 35px;
-    color: white;
-    font-family: inherit;
-    font-size: 15px;
-    cursor: pointer;
-    &:hover{
-        filter:brightness(0.8);
-    }
 `;

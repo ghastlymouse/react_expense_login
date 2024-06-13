@@ -3,6 +3,7 @@ import * as S from './MyProfile.styled'
 import { useDispatch, useSelector } from 'react-redux';
 import { setUserInfo } from '../../redux/slices/auth.slice';
 import { authApi } from '../../api/axios';
+import Swal from 'sweetalert2';
 
 const MyProfile = () => {
     const dispatch = useDispatch();
@@ -17,6 +18,7 @@ const MyProfile = () => {
 
     const handleChangNickname = async (event) => {
         event.preventDefault();
+        setIsNewNameValid(true);
         if (!newName.trim()) return setIsNewNameValid(false);
         try {
             const response = await authApi.patch("/profile",
@@ -31,14 +33,31 @@ const MyProfile = () => {
             );
             if (response.data.success) {
                 dispatch(setUserInfo({ ...userInfo, nickname: newName }));
-                alert("닉네임이 변경되었습니다.");
+                Swal.fire({
+                    icon: "success",
+                    title: "와우!",
+                    text: "닉네임 변경에 성공했습니다! 멋진 닉네임!",
+                    confirmButtonText: "확인",
+                });
                 setNewName("");
             } else {
-                alert("닉네임 변경에 실패했습니다.");
+                Swal.fire({
+                    icon: "error",
+                    title: "이런!",
+                    text: "닉네임 변경에 실패했습니다.. 괜찮습니다! 지금 닉네임도 멋집니다!",
+                    confirmButtonText: "확인",
+                    confirmButtonColor: "orange",
+                });
             }
         } catch (error) {
             console.error("Failed to update profile:", error);
-            alert("닉네임 변경에 실패했습니다.");
+            Swal.fire({
+                icon: "error",
+                title: "이런!",
+                text: "닉네임 변경에 실패했습니다.. 괜찮습니다! 지금 닉네임도 멋집니다!",
+                confirmButtonText: "확인",
+                confirmButtonColor: "orange",
+            });
         }
     }
 
@@ -57,15 +76,32 @@ const MyProfile = () => {
             );
             if (response.data.success) {
                 dispatch(setUserInfo({ ...userInfo, avatar: response.data.avatar }));
-                alert("프로필 사진이 변경되었습니다.");
+                Swal.fire({
+                    icon: "success",
+                    title: "와우!",
+                    text: "프로필 사진 변경에 성공했습니다! 멋진 사진!",
+                    confirmButtonText: "확인",
+                });
                 setNewName("");
                 setNewAvatar(null);
             } else {
-                alert("프로필 사진 변경에 실패했습니다.");
+                Swal.fire({
+                    icon: "error",
+                    title: "이런!",
+                    text: "프로필 사진 변경에 실패했습니다.. 괜찮습니다! 지금 사진도 멋집니다!",
+                    confirmButtonText: "확인",
+                    confirmButtonColor: "orange",
+                });
             }
         } catch (error) {
             console.error("Failed to update profile:", error);
-            alert("프로필 사진 변경에 실패했습니다.");
+            Swal.fire({
+                icon: "error",
+                title: "이런!",
+                text: "프로필 사진 변경에 실패했습니다.. 괜찮습니다! 지금 사진도 멋집니다!",
+                confirmButtonText: "확인",
+                confirmButtonColor: "orange",
+            });
         }
     };
 

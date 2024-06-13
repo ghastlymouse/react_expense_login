@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, setUserInfo } from '../../redux/slices/auth.slice';
 import { authApi } from '../../api/axios';
+import Swal from 'sweetalert2';
 
 const NavBar = () => {
     const navigate = useNavigate();
@@ -14,11 +15,26 @@ const NavBar = () => {
     const avatar = userInfo?.avatar;
 
     const handleLogout = () => {
-        const isLogout = confirm("정말 로그아웃 하시겠습니까?");
-        if (isLogout) {
-            dispatch(logout());
-            navigate("/login");
-        }
+        Swal.fire({
+            icon: "warning",
+            title: "로그아웃 하시겠습니까?",
+            confirmButtonText: "로그아웃",
+            showCancelButton: true,
+            cancelButtonText: "아니요",
+            confirmButtonColor: "red",
+        }).then(result => {
+            if (result.isConfirmed) {
+                Swal.fire({
+                    icon: "success",
+                    title: "안녕~",
+                    text: "로그아웃중..",
+                    showConfirmButton: false,
+                    timer: 2000,
+                });
+                dispatch(logout());
+                navigate("/login")
+            }
+        })
     };
 
     useEffect(() => {

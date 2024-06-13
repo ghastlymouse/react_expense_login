@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom'
 import { useDispatch } from 'react-redux';
 import { login } from '../../redux/slices/auth.slice';
 import { authApi } from '../../api/axios';
+import Swal from 'sweetalert2';
 
 const LoginForm = () => {
     const navigate = useNavigate();
@@ -30,13 +31,23 @@ const LoginForm = () => {
             const data = response.data;
             if (data.success) {
                 dispatch(login(data.accessToken));
+                Swal.fire({
+                    icon: "success",
+                    title: "로그인 성공!",
+                    text: "접속 중 ..",
+                    timer: 2000,
+                    showConfirmButton: false,
+                });
                 navigate("/");
             } else {
-                alert("Login failed");
+                Swal.fire({
+                    icon: "error",
+                    text: "당신의 모종의 이유로 로그인 할 수 없습니다.",
+                    confirmButtonText: "헉!",
+                });
             }
         } catch (error) {
             console.error("Login error:", error);
-            alert("Login failed");
         }
     };
 

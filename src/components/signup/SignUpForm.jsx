@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import * as S from './signUpForm.styled'
 import { useNavigate } from 'react-router-dom';
 import { authApi } from '../../api/axios';
+import Swal from 'sweetalert2';
 
 const SignUpForm = () => {
     const navigate = useNavigate();
@@ -36,14 +37,22 @@ const SignUpForm = () => {
             })
             const data = response.data;
             if (data.success) {
-                alert("회원가입 성공!");
+                Swal.fire({
+                    icon: "success",
+                    title: "야호!",
+                    text: "회원가입 성공!",
+                    confirmButtonText: "로그인하러가기!",
+                });
                 navigate("/login");
             } else {
-                alert("Signup failed");
+                Swal.fire({
+                    icon: "error",
+                    text: "당신은 모종의 이유로 회원가입 할 수 없습니다.",
+                    confirmButtonText: "헉!",
+                });
             }
         } catch (error) {
             console.error("Signup error:", error);
-            alert("Signup failed");
         }
 
     };
