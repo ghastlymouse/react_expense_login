@@ -71,15 +71,6 @@
       "userId": "4111207-5f9c-4e20-912f"
     },
     {
-      "month": 6,
-      "date": "2024-06-12",
-      "item": "도서",
-      "amount": 15000,
-      "description": "노인과 바다",
-      "createdBy": "wjdgusdnr2",
-      "id": "539781fd-145e-4da9-91b6-b3fc3c7610ca"
-    },
-    {
       "id": "ae1b53eb-4f13-4478-8a06-706fca8a356b",
       "month": 7,
       "date": "2024-07-05",
@@ -89,13 +80,13 @@
       "createdBy": "wjdgusdnr2"
     },
     {
+      "id": "f4e6daaf-ec62-42c5-92a7-75f78313771b",
       "month": 6,
-      "date": "2024-06-11",
-      "item": "식비",
-      "amount": 50000,
-      "description": "치킨 2마리",
-      "createdBy": "wjdgusdnr2",
-      "id": "9bf19b0f-0779-40c7-8de6-652caa267f65"
+      "date": "2024-06-14",
+      "item": "테스트",
+      "amount": 1000,
+      "description": "xptmxm",
+      "createdBy": "wjdgusdnr5"
     }
   ]
 }

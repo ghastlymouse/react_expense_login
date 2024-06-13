@@ -34,3 +34,12 @@ authApi.interceptors.response.use(
     return Promise.reject(error);
   }
 );
+
+jsonApi.interceptors.request.use(
+  async (config) => {
+    const { data } = await authApi.get("/user");
+    if (data?.success) return config;
+    return Promise.reject(new Error("사용자 정보 조회에 실패 했습니다."));
+  },
+  (error) => Promise.reject(error)
+);
