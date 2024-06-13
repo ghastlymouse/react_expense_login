@@ -30,7 +30,7 @@ const ExpenseItem = ({ expense }) => {
             </div>
             <StSpanDiv>
                 <StSpan>
-                    {createdBy}님의 지출
+                    "{createdBy}"님의 지출 :
                 </StSpan>
                 <StSpan>
                     {amount.toLocaleString()}원
@@ -66,7 +66,7 @@ const StSpan = styled.span`
 
 const StSpanDiv = styled.div`
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     justify-content: center;
     align-items: center;
 `;
