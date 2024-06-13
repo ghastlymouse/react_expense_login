@@ -1,5 +1,5 @@
 import React, { useRef } from 'react'
-import styled from 'styled-components'
+import * as S from "./DetailExpense.styled";
 import { useNavigate, useParams } from 'react-router-dom';
 import { editExpense, fetchExpense, deleteExpense } from '../../api/expense';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
@@ -108,9 +108,9 @@ const DetailExpense = () => {
 
     const WriterButton = () => {
         return (
-            <StBtnDiv>
-                <StDetailBtn $color="green" type='submit'>수정</StDetailBtn>
-                <StDetailBtn $color="red" type='button' onClick={() => {
+            <S.BtnDiv>
+                <S.DetailBtn $color="green" type='submit'>수정</S.DetailBtn>
+                <S.DetailBtn $color="red" type='button' onClick={() => {
                     Swal.fire({
                         icon: "warning",
                         title: "헉!",
@@ -124,17 +124,17 @@ const DetailExpense = () => {
                             handleDelete();
                         }
                     })
-                }}>삭제</StDetailBtn>
-                <StDetailBtn $color="gray" type='button' onClick={() => navigate("/")}>돌아가기</StDetailBtn>
-            </StBtnDiv>
+                }}>삭제</S.DetailBtn>
+                <S.DetailBtn $color="gray" type='button' onClick={() => navigate("/")}>돌아가기</S.DetailBtn>
+            </S.BtnDiv>
         );
     };
 
     const GuestButton = () => {
         return (
-            <StBtnDiv>
-                <StDetailBtn $color="gray" type='button' onClick={() => navigate("/")}>돌아가기</StDetailBtn>
-            </StBtnDiv>
+            <S.BtnDiv>
+                <S.DetailBtn $color="gray" type='button' onClick={() => navigate("/")}>돌아가기</S.DetailBtn>
+            </S.BtnDiv>
         );
     };
 
@@ -142,8 +142,8 @@ const DetailExpense = () => {
     if (isError) return <div>데이터 조회 중 오류가 발생했습니다.</div>;
 
     return (
-        <StDetailSection>
-            <StDetailForm onSubmit={(e) => {
+        <S.DetailSection>
+            <S.DetailForm onSubmit={(e) => {
                 e.preventDefault();
                 Swal.fire({
                     icon: "question",
@@ -157,99 +157,44 @@ const DetailExpense = () => {
                     }
                 })
             }}>
-                <StDiv>
+                <S.Div>
                     <label htmlFor='date'>날짜</label>
-                    <StInput defaultValue={prevExpense.date}
+                    <S.Input defaultValue={prevExpense.date}
                         name="date"
                         type="date"
                         min={thisYearFirstDay}
                         max={thisYearLastDay}
                         disabled={!isWriter}
                     />
-                </StDiv>
-                <StDiv>
+                </S.Div>
+                <S.Div>
                     <label htmlFor='item'>항목</label>
-                    <StInput defaultValue={prevExpense.item}
+                    <S.Input defaultValue={prevExpense.item}
                         name="item"
                         type="text"
                         disabled={!isWriter}
                     />
-                </StDiv>
-                <StDiv>
+                </S.Div>
+                <S.Div>
                     <label htmlFor='amount'>금액</label>
-                    <StInput defaultValue={prevExpense.amount}
+                    <S.Input defaultValue={prevExpense.amount}
                         name="amount"
                         type="number"
                         disabled={!isWriter}
                     />
-                </StDiv>
-                <StDiv>
+                </S.Div>
+                <S.Div>
                     <label htmlFor='description'>내용</label>
-                    <StInput defaultValue={prevExpense.description}
+                    <S.Input defaultValue={prevExpense.description}
                         name="description"
                         type="text"
                         disabled={!isWriter}
                     />
-                </StDiv>
+                </S.Div>
                 {isWriter ? <WriterButton /> : <GuestButton />}
-            </StDetailForm>
-        </StDetailSection>
+            </S.DetailForm>
+        </S.DetailSection>
     )
 }
 
 export default DetailExpense
-
-const StDetailBtn = styled.button`
-    width: 10%;
-    height: 35px;
-    border: none;
-    border-radius: 10px;
-    padding: 10px 20px;
-    font-family: inherit;
-    font-size: inherit;
-    background-color: ${props => props.$color || "black"};
-    color: white;
-    cursor: pointer;
-    &:hover{
-        filter:brightness(0.8);
-    }
-`;
-
-const StDetailSection = styled.section`
-    background-color: white;
-    width: 100%;
-    margin: 10px;
-    padding: 20px;
-    border: 5px solid black;
-    border-radius: 10px;
-`;
-
-const StDiv = styled.div`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-`;
-
-const StDetailForm = styled.form`
-    width: 100%;
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-`;
-
-const StBtnDiv = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    gap: 10px;
-`;
-
-const StInput = styled.input`
-    width: 100%;
-    height: 50px;
-    background-color: #e2dbdb;
-    border: 1px solid black;
-    border-radius: 10px;
-    font-family: inherit;
-    font-size: inherit;
-`;
