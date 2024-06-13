@@ -89,13 +89,31 @@
       "createdBy": "wjdgusdnr5"
     },
     {
+      "id": "061277a0-f7cf-41cd-8e27-10bc27458adb",
+      "month": 6,
+      "date": "2024-06-13",
+      "item": "수정",
+      "amount": 1,
+      "description": "tnwjdxptmxm",
+      "createdBy": "wjdgusdnr2"
+    },
+    {
+      "id": "922af847-087c-4639-8e48-96a2f3d2d563",
       "month": 6,
       "date": "2024-06-13",
       "item": "도서",
       "amount": 40000,
       "description": "노인과 바다",
-      "createdBy": "wjdgusdnr2",
-      "id": "1e8c59ac-68be-48d2-b38c-5931c790ed50"
+      "createdBy": "wjdgusdnr2"
+    },
+    {
+      "month": 6,
+      "date": "2024-06-14",
+      "item": "식비",
+      "amount": 40000,
+      "description": "치킨 2마리",
+      "createdBy": "wjdgusdnr3",
+      "id": "90e11faa-fd55-4cc1-ad99-c01bbefdffbd"
     }
   ]
 }
