@@ -4,11 +4,11 @@ import { logout } from "../redux/slices/auth.slice";
 import Swal from "sweetalert2";
 
 export const authApi = axios.create({
-  baseURL: "https://moneyfulpublicpolicy.co.kr",
+  baseURL: import.meta.env.VITE_JWT_AUTH_URL,
 });
 
 export const jsonApi = axios.create({
-  baseURL: "http://localhost:5055",
+  baseURL: import.meta.env.VITE_EXPENSE_SERVER_URL,
 });
 
 authApi.interceptors.request.use(
