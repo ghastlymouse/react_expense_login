@@ -1,6 +1,6 @@
 import React from 'react'
 import { useNavigate } from 'react-router-dom';
-import styled from 'styled-components';
+import * as S from "./ExpenseItem.styled";
 
 const ExpenseItem = ({ expense }) => {
     const { id, date, item, amount, description, createdBy } = expense;
@@ -19,54 +19,25 @@ const ExpenseItem = ({ expense }) => {
     };
 
     return (
-        <StDiv onClick={() => handleGoToDetail(id)}>
+        <S.Div onClick={() => handleGoToDetail(id)}>
             <div>
-                <StSpan>
+                <S.Span>
                     {date}<br />
-                </StSpan>
-                <StSpan>
+                </S.Span>
+                <S.Span>
                     {item} - {longToShort(description)}<br />
-                </StSpan>
+                </S.Span>
             </div>
-            <StSpanDiv>
-                <StSpan>
+            <S.SpanDiv>
+                <S.Span>
                     "{createdBy}"님의 지출 :
-                </StSpan>
-                <StSpan>
+                </S.Span>
+                <S.Span>
                     {amount.toLocaleString()}원
-                </StSpan>
-            </StSpanDiv>
-        </StDiv>
+                </S.Span>
+            </S.SpanDiv>
+        </S.Div>
     )
 }
 
 export default ExpenseItem
-
-const StDiv = styled.div`
-    width: 95%;
-    height: 50px;
-    background-color: #d3cccc;
-    border: 1px solid black;
-    border-radius: 5px;
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    align-items: center;
-    cursor: pointer;
-    &:hover{
-        transform: scale(1.025);
-    }
-`;
-
-const StSpan = styled.span`
-    padding: 5px;
-    background-color: transparent;
-    color: #000000;
-`;
-
-const StSpanDiv = styled.div`
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-`;
