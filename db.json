@@ -87,6 +87,15 @@
       "amount": 1000,
       "description": "xptmxm",
       "createdBy": "wjdgusdnr5"
+    },
+    {
+      "month": 6,
+      "date": "2024-06-13",
+      "item": "도서",
+      "amount": 40000,
+      "description": "노인과 바다",
+      "createdBy": "wjdgusdnr2",
+      "id": "1e8c59ac-68be-48d2-b38c-5931c790ed50"
     }
   ]
 }
