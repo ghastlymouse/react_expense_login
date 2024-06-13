@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components';
+import * as S from "./ExpenseList.styled";
 import ExpenseItem from './ExpenseItem'
 import { useSelector } from 'react-redux';
 import { useQuery } from '@tanstack/react-query';
@@ -19,7 +19,7 @@ const ExpenseList = () => {
     if (isError) return <div>데이터 조회 중 오류가 발생했습니다.</div>;
 
     return (
-        <StSection>
+        <S.Section>
             {
                 selectedList.map(expense => {
                     return (
@@ -30,22 +30,8 @@ const ExpenseList = () => {
                     );
                 })
             }
-        </StSection>
+        </S.Section>
     )
 }
 
 export default ExpenseList
-
-const StSection = styled.section`
-    width: 100%;
-    background-color: white;
-    color: black;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 20px;
-    border: 5px solid black;
-    border-radius: 8px;
-    margin: 10px;
-`;
