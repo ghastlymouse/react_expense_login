@@ -59,7 +59,6 @@ const SignUpForm = () => {
                         type="text"
                         value={id}
                         onChange={(e) => setId(e.target.value)}
-                        required
                         minLength={4}
                         maxLength={10}
                     />
@@ -72,7 +71,6 @@ const SignUpForm = () => {
                         type="password"
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
-                        required
                         minLength={4}
                         maxLength={15}
                     />
@@ -85,7 +83,6 @@ const SignUpForm = () => {
                         type="password"
                         value={passwordConfirm}
                         onChange={(e) => setPasswordConfirm(e.target.value)}
-                        required
                         minLength={4}
                         maxLength={15}
                     />
@@ -98,7 +95,6 @@ const SignUpForm = () => {
                         type="text"
                         value={nickname}
                         onChange={(e) => setNickname(e.target.value)}
-                        required
                         minLength={1}
                         maxLength={10}
                     />
