@@ -11,20 +11,20 @@ const MyProfile = () => {
     const nickname = userInfo?.nickname;
     const avatar = userInfo?.avatar;
     const [newName, setNewName] = useState("");
+    const [isNewNameValid, setIsNewNameValid] = useState(true);
     const [previewImage, setPreviewImage] = useState(avatar); // 미리보기 용
     const [newAvatar, setNewAvatar] = useState(null); // 업로드 용 객체
 
     const handleChangNickname = async (event) => {
         event.preventDefault();
+        if (!newName.trim()) return setIsNewNameValid(false);
         try {
-            const token = localStorage.getItem("accessToken");
             const response = await authApi.patch("/profile",
                 {
                     nickname: newName,
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
                         "Content-Type": "multipart/form-data",
                     },
                 }
@@ -45,14 +45,12 @@ const MyProfile = () => {
     const handleChangAvatar = async (event) => {
         event.preventDefault();
         try {
-            const token = localStorage.getItem("accessToken");
             const response = await authApi.patch("/profile",
                 {
                     avatar: newAvatar,
                 },
                 {
                     headers: {
-                        Authorization: `Bearer ${token}`,
                         "Content-Type": "multipart/form-data",
                     },
                 }
@@ -92,8 +90,8 @@ const MyProfile = () => {
                     onChange={(e) => setNewName(e.target.value)}
                     minLength={1}
                     maxLength={10}
-                    required
                 />
+                <S.Span $display={isNewNameValid ? "none" : "block"}>유효한 닉네임으로 입력해주세요!</S.Span>
                 <S.Button type="submit">닉네임 변경</S.Button>
             </S.Form>
             <S.Form onSubmit={handleChangAvatar}>

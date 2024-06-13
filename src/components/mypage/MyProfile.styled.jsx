@@ -58,3 +58,8 @@ export const Image = styled.img`
     height: 200px;
     border-radius: 100px;
 `;
+
+export const Span = styled.span`
+    color: red;
+    display: ${props => props.$display};
+`;
